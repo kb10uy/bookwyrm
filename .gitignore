@@ -36,3 +36,7 @@ nginx/default.conf
 
 #macOS
 **/.DS_Store
+
+# static file links
+/images
+/static
