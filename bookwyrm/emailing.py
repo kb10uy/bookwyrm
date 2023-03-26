@@ -18,6 +18,12 @@ def email_data():
     }
 
 
+def test_email(user):
+    """Just an admin checking if emails are sending"""
+    data = email_data()
+    send_email(user.email, *format_email("test", data))
+
+
 def email_confirmation_email(user):
     """newly registered users confirm email address"""
     data = email_data()
@@ -69,7 +75,7 @@ def format_email(email_name, data):
     return (subject, html_content, text_content)
 
 
-@app.task(queue=HIGH)
+@app.task(queue=HIGH, ignore_result=True)
 def send_email(recipient, subject, html_content, text_content):
     """use a task to send the email"""
     email = EmailMultiAlternatives(
